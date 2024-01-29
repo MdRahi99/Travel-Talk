@@ -1,12 +1,40 @@
 /* eslint-disable react/prop-types */
+import axios from "axios";
 import { useForm } from "react-hook-form";
+import useComments from "../Hooks/useComments";
+import { Zoom, toast } from "react-toastify";
 
-const CommentForm = ({onCommentSubmit, closeModal}) => {
+const CommentForm = ({blogId}) => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
+    const [, refetch] = useComments();
+
+    const onCommentSubmit = async (data) => {
+        try {
+            const response = await axios.post(`https://travel-talk-server.vercel.app/api/blogs/${blogId}/comments`, data);
+            toast.success('Comment Added Successfully!', {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Zoom
+            });
+            refetch();
+            reset();
+            return response.data;
+        } catch (error) {
+            console.error('Error adding new comment:', error);
+            throw error;
+        }
+    };
 
     return (
-        <div className="flex flex-col gap-6 w-11/12 rounded-xl lg:w-2/4 bg-white h-fit p-8 mt-12">
+        <div className="flex flex-col gap-6 w-full shadow-2xl lg:w-2/4 bg-white p-8">
             <h1 className="text-lg font-bold text-center pb-3 border-b-2 border-sky-200">Add Comment</h1>
             <form onSubmit={handleSubmit(onCommentSubmit)} className='flex flex-col gap-4'>
                 <div>
@@ -14,7 +42,7 @@ const CommentForm = ({onCommentSubmit, closeModal}) => {
                     <input
                         type="text"
                         name="name"
-                        placeholder="Enter Blog name Here"
+                        placeholder="Enter Your Name Here"
                         className={`input input-bordered w-full mx-auto rounded-lg focus:outline-none ${errors.name ? 'border-red-500 focus:border-red-500' : ''}`}
                         {...register("name", { required: 'Name Is Required', maxLength: { value: 50, message: 'Name must be at most 50 characters' } })}
                     />
@@ -26,7 +54,7 @@ const CommentForm = ({onCommentSubmit, closeModal}) => {
                     <input
                         type="text"
                         name="email"
-                        placeholder="Enter Email Here"
+                        placeholder="Enter Your Email Here"
                         className={`input input-bordered w-full mx-auto rounded-lg focus:outline-none ${errors.email ? 'border-red-500 focus:border-red-500' : ''}`}
                         {...register("email", { required: 'Email Is Required' })}
                     />
@@ -38,24 +66,15 @@ const CommentForm = ({onCommentSubmit, closeModal}) => {
                     <textarea
                         type="text"
                         name="body"
-                        placeholder="Enter Blog Body Here"
+                        placeholder="Enter Comment Here"
                         className={`textarea textarea-bordered w-full mx-auto rounded-lg focus:outline-none ${errors.body ? 'border-red-500 focus:border-red-500' : ''}`}
                         {...register("body", { required: 'Body Is Required' })}
                     />
                     {errors.body && <span className="text-red-500">{errors.body.message}</span>}
                 </div>
-
-                <div className="flex Products-center justify-between gap-4 lg:gap-8 mt-6">
-                    <button type="submit" className="w-full lg:w-1/2 mx-auto rounded-xl p-2 shadow-md font-bold uppercase hover:bg-sky-600 hover:text-white">
-                        Add
-                    </button>
-                    <button
-                        onClick={closeModal}
-                        className="w-full text-center lg:w-1/2 mx-auto rounded-xl p-2 shadow-md font-bold uppercase hover:bg-sky-600 hover:text-white"
-                    >
-                        Close
-                    </button>
-                </div>
+                <button type="submit" className="w-full rounded-xl p-2 shadow-md font-bold uppercase hover:bg-sky-600 hover:text-white">
+                    Add
+                </button>
             </form>
         </div>
     );

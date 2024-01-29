@@ -11,7 +11,7 @@ const useBlog = () => {
     useEffect(() => {
         const fetchBlog = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/blogs/${blogId}`);
+                const response = await axios.get(`https://travel-talk-server.vercel.app/api/blogs/${blogId}`);
                 setBlog(response.data.data);
                 setLoading(false);
             } catch (error) {
@@ -30,7 +30,7 @@ const useBlog = () => {
                 userId = generateUserId();
                 localStorage.setItem('userId', userId);
             }
-            await axios.post('http://localhost:5000/api/blogs', { ...data, userId });
+            await axios.post('https://travel-talk-server.vercel.app/api/blogs', { ...data, userId });
         } catch (error) {
             console.error('Error deleting blog:', error);
         }
@@ -39,7 +39,7 @@ const useBlog = () => {
     const updateBlog = async (data) => {
         try {
             let userId = parseInt(localStorage.getItem('userId'), 10);
-            await axios.put(`http://localhost:5000/api/blogs/${blogId}`, { ...data, userId });
+            await axios.put(`https://travel-talk-server.vercel.app/api/blogs/${blogId}`, { ...data, userId });
         } catch (error) {
             console.error('Error deleting blog:', error);
         }
@@ -47,7 +47,7 @@ const useBlog = () => {
 
     const deleteBlog = async () => {
         try {
-            await axios.delete(`http://localhost:5000/api/blogs/${blogId}`);
+            await axios.delete(`https://travel-talk-server.vercel.app/api/blogs/${blogId}`);
         } catch (error) {
             console.error('Error deleting blog:', error);
         }

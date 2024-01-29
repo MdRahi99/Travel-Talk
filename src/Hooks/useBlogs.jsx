@@ -8,7 +8,7 @@ const useBlogs = () => {
         queryKey: ['blogs'],
         queryFn: async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/blogs');
+                const res = await axios.get('https://travel-talk-server.vercel.app/api/blogs');
                 return res.data.data;
             } catch (error) {
                 throw new Error('Failed to fetch blogs');
@@ -18,7 +18,7 @@ const useBlogs = () => {
 
     const deleteBlog = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/blogs/${id}`);
+            await axios.delete(`https://travel-talk-server.vercel.app/api/blogs/${id}`);
             refetch();
         } catch (error) {
             throw new Error('Failed to delete blog');

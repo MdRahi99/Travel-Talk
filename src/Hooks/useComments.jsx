@@ -10,7 +10,7 @@ const useComments = () => {
         queryKey: ['comments'],
         queryFn: async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/blogs/${blogId}/comments`);
+                const res = await axios.get(`https://travel-talk-server.vercel.app/api/blogs/${blogId}/comments`);
                 return res.data.data;
             } catch (error) {
                 throw new Error('Failed to fetch comments');
@@ -18,7 +18,15 @@ const useComments = () => {
         }
     });
 
-    return [ comments, refetch, loading ];
+    const deleteComment = async (id) => {
+        try {
+            await axios.delete(`https://travel-talk-server.vercel.app/api/comments/${id}`);
+        } catch (error) {
+            console.error('Error deleting blog:', error);
+        }
+    };
+
+    return [ comments, refetch, loading, deleteComment ];
 };
 
 export default useComments;
