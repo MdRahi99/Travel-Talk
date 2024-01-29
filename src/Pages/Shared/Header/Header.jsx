@@ -12,6 +12,9 @@ const Header = () => {
                     <Link className='font-semibold hover:bg-sky-200 rounded-none text-sm' to='/blogs'>Blogs</Link>
                 </li>
                 <li>
+                    <Link className='font-semibold hover:bg-sky-200 rounded-none text-sm' to='/add-blog'>Add Blog</Link>
+                </li>
+                <li>
                     <Link className='font-semibold hover:bg-sky-200 rounded-none text-sm' to='/favorites'>Favorites</Link>
                 </li>
             </ul>

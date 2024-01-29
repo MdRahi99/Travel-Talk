@@ -12,7 +12,7 @@ const Main = () => {
                     <Outlet />
                 </div>
             </div>
-            <div className="drawer-side shadow-lg shadow-sky-300">
+            <div className="drawer-side shadow-lg shadow-sky-300 max-h-[100vh]">
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
                 <Header />
             </div>
