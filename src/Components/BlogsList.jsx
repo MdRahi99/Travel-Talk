@@ -16,7 +16,7 @@ const BlogsList = ({ blog, handleDelete }) => {
                     handleDelete &&
                     <button
                         onClick={() => toggleFavorite(_id)}
-                        className={favorites.includes(_id) ? 'text-lg lg:text-xl uppercase py-1 rounded-lg text-orange-600 px-3 font-bold' : 'text-lg lg:text-xl uppercase py-1 rounded-lg hover:text-gray-600 px-3 font-bold'}
+                        className={favorites.includes(_id) ? 'text-lg lg:text-xl uppercase py-1 rounded-lg text-orange-600 px-3 font-bold' : 'text-lg lg:text-xl uppercase py-1 hover:text-orange-600 rounded-lg px-3 font-bold'}
                         title={favorites.includes(_id) ? 'Remove Favorite' : 'Add Favorite'}
                     >
                         <MdFavorite />
