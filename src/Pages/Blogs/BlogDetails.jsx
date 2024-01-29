@@ -7,11 +7,13 @@ import Comments from "../Comments/Comments";
 import { Zoom, toast } from "react-toastify";
 import useBlog from "../../Hooks/useBlog";
 import CommentForm from "../../Components/CommentForm";
+import useFavorites from "../../Hooks/useFavorites";
 
 const BlogDetails = () => {
 
     const [blog, , , deleteBlog, loading] = useBlog();
     const navigate = useNavigate();
+    const [favorites, toggleFavorite] = useFavorites();
 
     const handleDelete = async (id) => {
         try {
@@ -48,8 +50,10 @@ const BlogDetails = () => {
 
                         <div className="flex items-center gap-2 lg:gap-4">
                             <button
-                                title="Add Favorite"
-                                className="text-lg lg:text-xl uppercase py-1 rounded-lg hover:text-orange-600 px-3 font-bold" >
+                                onClick={() => toggleFavorite(_id)}
+                                className={favorites.includes(_id) ? 'text-lg lg:text-xl uppercase py-1 rounded-lg text-orange-600 px-3 font-bold' : 'text-lg lg:text-xl uppercase py-1 hover:text-orange-600 rounded-lg px-3 font-bold'}
+                                title={favorites.includes(_id) ? 'Remove Favorite' : 'Add Favorite'}
+                            >
                                 <MdFavorite />
                             </button>
                             <Link to={`/blogs/update-blog/${_id}`} className="text-sm font-bold bg-sky-400 hover:bg-sky-600 text-white text-center py-1 px-2 mr-4 rounded-lg">Update</Link>
