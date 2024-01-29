@@ -31,7 +31,7 @@ const Comments = () => {
                 <h1 className="font-bold text-lg border-b-2 border-sky-400 pb-2">Users Comments</h1>
                 {
                     comments.length > 0 ?
-                        <div>
+                        <div className="flex flex-col gap-8">
                             {
                                 comments.map(comment => {
                                     return <div key={comment._id} className="shadow-lg border-b-2 border-sky-300 py-4 px-3 flex items-center justify-between">
